@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import {
   ArrowUpRight,
   BookOpenCheck,
@@ -215,9 +215,8 @@ const contactItems: ContactItem[] = [
 ];
 
 export function PortfolioPage() {
-  const shouldReduceMotion = useReducedMotion();
   const fadeIn: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 18 },
+    hidden: { opacity: 0, y: 18 },
     visible: {
       opacity: 1,
       y: 0,
@@ -265,7 +264,7 @@ export function PortfolioPage() {
           variants={{
             hidden: {},
             visible: {
-              transition: { staggerChildren: shouldReduceMotion ? 0 : 0.08 },
+              transition: { staggerChildren: 0.08 },
             },
           }}
           className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]"
@@ -316,7 +315,7 @@ export function PortfolioPage() {
             <TerminalWindow title="USER_IMAGE_BUFFER" command="render pfp.png --crt">
               <div className="grid gap-4 sm:grid-cols-[1fr_0.8fr] lg:grid-cols-1 xl:grid-cols-[1fr_0.76fr]">
                 <motion.div
-                  whileHover={shouldReduceMotion ? undefined : { x: 3, y: -3 }}
+                  whileHover={{ x: 3, y: -3 }}
                   className="relative aspect-[4/5] overflow-hidden border border-[#33ff00] bg-black"
                 >
                   <Image
@@ -520,16 +519,14 @@ function Reveal({
   className?: string;
   delay?: number;
 }) {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 14 }}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{
         duration: 0.42,
-        delay: shouldReduceMotion ? 0 : delay,
+        delay,
         ease: terminalEase,
       }}
       className={className}
@@ -651,8 +648,6 @@ function TerminalLink({
 }
 
 function ProjectPane({ project, index }: { project: Project; index: number }) {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
     <Reveal delay={index * 0.08} className={project.featured ? "lg:col-span-2" : ""}>
       <TerminalWindow
@@ -660,7 +655,7 @@ function ProjectPane({ project, index }: { project: Project; index: number }) {
         command={project.command}
       >
         <motion.article
-          whileHover={shouldReduceMotion ? undefined : { x: 3, y: -3 }}
+          whileHover={{ x: 3, y: -3 }}
           className={`grid gap-5 ${project.featured ? "lg:grid-cols-[0.82fr_1.18fr]" : ""}`}
         >
           <div className="border border-[#1f521f] bg-black p-3">
