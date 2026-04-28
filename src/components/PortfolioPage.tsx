@@ -28,6 +28,7 @@ type Project = {
   status: string;
   description: string;
   repo: string;
+  liveUrl?: string;
   image?: string;
   imageAlt?: string;
   icon: LucideIcon;
@@ -108,6 +109,7 @@ const projects: Project[] = [
     description:
       "A stock-trading alert app built to help traders react faster with timely buy/sell notifications. It connects a real market workflow with alert logic, product thinking, and a clean trading-focused experience.",
     repo: "https://github.com/Upekcapy/noti-stock",
+    liveUrl: "https://noti-stock.vercel.app",
     image: "/images/notistock-usethisimage.png",
     imageAlt: "NotiStock stock alert screen",
     icon: Trophy,
@@ -284,9 +286,11 @@ export function PortfolioPage() {
                   </h1>
                 </div>
                 <PromptLine>
-                  I am a Computer Science student at Toronto Metropolitan
-                  University, excited to join co-op, learn from real engineering
-                  teams, and build software that is useful, reliable, and clear.
+                  Oh hey there! I&apos;m a computer science student at Toronto
+                  Metropolitan University and its been its really chill and easy
+                  despite my gpa 💀. Excited to join co-op, learn from real
+                  engineering teams, and build software that is useful, reliable,
+                  and clear!
                 </PromptLine>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {systemFacts.map(([label, value]) => (
@@ -709,7 +713,16 @@ function ProjectPane({ project, index }: { project: Project; index: number }) {
               ))}
             </div>
 
-            <TerminalLink href={project.repo} label="VIEW_REPO" icon={GitBranch} />
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <TerminalLink href={project.repo} label="VIEW_REPO" icon={GitBranch} />
+              {project.liveUrl && (
+                <TerminalLink
+                  href={project.liveUrl}
+                  label="LIVE_SITE"
+                  icon={ArrowUpRight}
+                />
+              )}
+            </div>
           </div>
         </motion.article>
       </TerminalWindow>

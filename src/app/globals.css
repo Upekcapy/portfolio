@@ -90,8 +90,16 @@ html {
     cursor-border 1s steps(2, start) infinite;
 }
 
+.glitch-link {
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    filter 250ms ease,
+    transform 250ms ease;
+}
+
 .glitch-link:hover {
-  animation: terminal-glitch 260ms steps(2, end) 1;
+  filter: brightness(1.12);
 }
 
 .glitch-title {
@@ -106,7 +114,6 @@ html {
 
 .glitch-title::before,
 .glitch-title::after {
-  animation: title-glitch 5.8s steps(2, end) infinite;
   content: attr(data-text);
   inset: 0;
   opacity: 0;
@@ -131,7 +138,6 @@ html {
 
 .glitch-title:hover::before,
 .glitch-title:hover::after {
-  animation: title-glitch 640ms linear 1;
   opacity: 0.72;
 }
 
@@ -168,48 +174,6 @@ html {
   }
   to {
     width: 14ch;
-  }
-}
-
-@keyframes terminal-glitch {
-  0% {
-    transform: translate(0, 0);
-  }
-  25% {
-    transform: translate(1px, -1px);
-  }
-  50% {
-    transform: translate(-1px, 1px);
-  }
-  75% {
-    transform: translate(1px, 1px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-@keyframes title-glitch {
-  0%,
-  100% {
-    clip-path: inset(0 0 0 0);
-    opacity: 0;
-  }
-  18% {
-    clip-path: inset(12% 0 58% 0);
-    opacity: 0.85;
-  }
-  36% {
-    clip-path: inset(62% 0 16% 0);
-    opacity: 0.55;
-  }
-  54% {
-    clip-path: inset(28% 0 44% 0);
-    opacity: 0.75;
-  }
-  72% {
-    clip-path: inset(74% 0 8% 0);
-    opacity: 0.45;
   }
 }
 
