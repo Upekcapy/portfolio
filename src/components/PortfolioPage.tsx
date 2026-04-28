@@ -34,7 +34,7 @@ type Project = {
   tags: string[];
   metrics: { label: string; value: number }[];
   featured?: boolean;
-  terminal?: boolean;
+  visual?: "rps" | "hangman";
 };
 
 type VolunteerItem = {
@@ -61,7 +61,7 @@ const navItems = [
 const systemFacts = [
   ["USER", "UPEK_PERERA"],
   ["ROLE", "TMU_CS_COOP_APPLICANT"],
-  ["TARGET", "SOFTWARE_DEVELOPER"],
+  ["TARGET", "SOFTWARE_DEVELOPER / GAME_DEVELOPER"],
   ["STATUS", "[OK] READY_TO_BUILD"],
 ];
 
@@ -108,8 +108,8 @@ const projects: Project[] = [
     description:
       "A stock-trading alert app built to help traders react faster with timely buy/sell notifications. It connects a real market workflow with alert logic, product thinking, and a clean trading-focused experience.",
     repo: "https://github.com/Upekcapy/noti-stock",
-    image: "/images/notistock-logo-lockup.png",
-    imageAlt: "NotiStock logo",
+    image: "/images/notistock-usethisimage.png",
+    imageAlt: "NotiStock stock alert screen",
     icon: Trophy,
     featured: true,
     tags: ["REACT", "TYPESCRIPT", "ALERTS", "PRODUCT_UX", "GITHUB"],
@@ -129,6 +129,7 @@ const projects: Project[] = [
     image: "/images/notistock-mobile-icon-512.png",
     imageAlt: "NotiStock mobile app icon",
     icon: Smartphone,
+    featured: true,
     tags: ["ANDROID", "MOBILE_UI", "NOTIFICATIONS", "STATE", "USABILITY"],
     metrics: [
       { label: "MOBILE_FIRST", value: 80 },
@@ -143,8 +144,7 @@ const projects: Project[] = [
     description:
       "A CPS109 Python project that reinforced syntax, arrays/lists, conditionals, loops, functions, and user input through a simple game loop.",
     repo: "https://github.com/Upekcapy/rock-paper-scissors",
-    image: "/images/rockpapersissors.png",
-    imageAlt: "Rock Paper Scissors terminal preview",
+    visual: "rps",
     icon: Code,
     tags: ["PYTHON", "LISTS", "LOOPS", "FUNCTIONS", "INPUT"],
     metrics: [
@@ -161,7 +161,7 @@ const projects: Project[] = [
       "A CPS209 Java project focused on object-oriented programming, classes, collections, state management, and data structures.",
     repo: "https://github.com/Upekcapy/hangman",
     icon: SquareTerminal,
-    terminal: true,
+    visual: "hangman",
     tags: ["JAVA", "OOP", "CLASSES", "COLLECTIONS", "DATA_STRUCTURES"],
     metrics: [
       { label: "OOP_DESIGN", value: 84 },
@@ -272,26 +272,30 @@ export function PortfolioPage() {
           <motion.div variants={fadeIn}>
             <TerminalWindow title="BOOT_SEQUENCE" command="whoami --coop-ready">
               <div className="space-y-5">
-                <AsciiLogo />
                 <div>
-                  <p className="text-xs uppercase text-[#ffb000]">
-                    [OK] PROFILE_LOADED
-                  </p>
                   <h1 className="terminal-glow mt-3 text-4xl font-black uppercase leading-none sm:text-6xl">
                     <span className="typing-line">UPEK PERERA</span>
-                    <span className="mt-3 block text-2xl text-[#ffb000] sm:text-4xl">
-                      TMU_COMPUTER_SCIENCE
+                    <span
+                      className="glitch-title mt-3 block text-2xl text-[#ffb000] sm:text-4xl"
+                      data-text="TMU COMPUTER SCIENCE"
+                    >
+                      TMU COMPUTER SCIENCE
                     </span>
                   </h1>
                 </div>
-                <PromptLine command="cat intro.txt">
+                <PromptLine>
                   I am a Computer Science student at Toronto Metropolitan
                   University, excited to join co-op, learn from real engineering
                   teams, and build software that is useful, reliable, and clear.
                 </PromptLine>
                 <div className="grid gap-2 sm:grid-cols-2">
                   {systemFacts.map(([label, value]) => (
-                    <KeyValue key={label} label={label} value={value} />
+                    <KeyValue
+                      key={label}
+                      label={label}
+                      value={value}
+                      className={label === "TARGET" ? "sm:col-span-2" : ""}
+                    />
                   ))}
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
@@ -313,28 +317,25 @@ export function PortfolioPage() {
 
           <motion.div variants={fadeIn}>
             <TerminalWindow title="USER_IMAGE_BUFFER" command="render pfp.png --crt">
-              <div className="grid gap-4 sm:grid-cols-[1fr_0.8fr] lg:grid-cols-1 xl:grid-cols-[1fr_0.76fr]">
+              <div className="grid items-center gap-5 sm:grid-cols-[0.75fr_1fr] lg:grid-cols-1 xl:grid-cols-[0.72fr_1fr]">
                 <motion.div
-                  whileHover={{ x: 3, y: -3 }}
-                  className="relative aspect-[4/5] overflow-hidden border border-[#33ff00] bg-black"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.18, ease: terminalEase }}
+                  className="relative mx-auto size-48 overflow-hidden rounded-full border border-[#33ff00] bg-black sm:size-56 lg:size-52"
                 >
                   <Image
                     src="/images/pfp.png"
                     alt="Upek Perera profile photo"
                     fill
                     priority
-                    sizes="(max-width: 1024px) 92vw, 480px"
-                    className="object-cover grayscale contrast-125 sepia-[0.18] transition duration-300 hover:grayscale-0 hover:sepia-0"
+                    sizes="224px"
+                    className="object-cover transition duration-300"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-[#33ff00]/10 mix-blend-screen" />
-                  <div className="absolute bottom-0 left-0 right-0 border-t border-[#33ff00] bg-black/88 p-3 text-xs uppercase text-[#33ff00]">
-                    [LIVE] SOFTWARE_DEVELOPER_COOP
-                  </div>
                 </motion.div>
                 <div className="space-y-3 text-sm">
                   <StatusRow label="COOP_STATE" value="[OPEN]" tone="ok" />
                   <StatusRow label="PROJECTS" value="04" tone="ok" />
-                  <StatusRow label="FOCUS" value="SOFTWARE_DEV" tone="warn" />
+                  <StatusRow label="FOCUS" value="SOFTWARE/GAME_DEV" tone="warn" />
                   <StatusRow label="STACK" value="PY/JAVA/TS/C++" tone="ok" />
                   <pre className="overflow-hidden border border-dashed border-[#1f521f] p-3 text-[10px] leading-4 text-[#1f521f] sm:text-xs">
 {`+----------------+
@@ -467,18 +468,6 @@ export function PortfolioPage() {
   );
 }
 
-function AsciiLogo() {
-  return (
-    <pre className="overflow-hidden text-[10px] font-black leading-[1.08] text-[#1f521f] sm:text-xs md:text-sm">
-{` _   _ ____  _____ _  __
-| | | |  _ \\| ____| |/ /
-| | | | |_) |  _| | ' / 
-| |_| |  __/| |___| . \\ 
- \\___/|_|   |_____|_|\\_\\`}
-    </pre>
-  );
-}
-
 function Section({
   id,
   index,
@@ -523,7 +512,7 @@ function Reveal({
     <motion.div
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.18 }}
       transition={{
         duration: 0.42,
         delay,
@@ -561,24 +550,25 @@ function TerminalWindow({
   );
 }
 
-function PromptLine({
-  command,
-  children,
-}: {
-  command: string;
-  children: React.ReactNode;
-}) {
+function PromptLine({ children }: { children: React.ReactNode }) {
   return (
     <div className="border-l border-[#1f521f] pl-3">
-      <p className="text-xs uppercase text-[#ffb000]">upek@portfolio:~$ {command}</p>
       <p className="mt-2 text-sm leading-7 text-[#b7ffb7]">{children}</p>
     </div>
   );
 }
 
-function KeyValue({ label, value }: { label: string; value: string }) {
+function KeyValue({
+  label,
+  value,
+  className = "",
+}: {
+  label: string;
+  value: string;
+  className?: string;
+}) {
   return (
-    <div className="grid grid-cols-[6.2rem_1fr] border border-[#1f521f] text-xs">
+    <div className={`grid grid-cols-[6.2rem_1fr] border border-[#1f521f] text-xs ${className}`}>
       <span className="border-r border-[#1f521f] bg-[#071207] px-2 py-2 text-[#ffb000]">
         {label}
       </span>
@@ -655,36 +645,38 @@ function ProjectPane({ project, index }: { project: Project; index: number }) {
         command={project.command}
       >
         <motion.article
-          whileHover={{ x: 3, y: -3 }}
+          whileHover={{ scale: 1.015 }}
+          transition={{ duration: 0.18, ease: terminalEase }}
           className={`grid gap-5 ${project.featured ? "lg:grid-cols-[0.82fr_1.18fr]" : ""}`}
         >
           <div className="border border-[#1f521f] bg-black p-3">
-            <div className="mb-3 flex items-center justify-between gap-3 text-xs uppercase">
-              <span className="inline-flex items-center gap-2 text-[#ffb000]">
-                <project.icon size={16} aria-hidden="true" />
-                {project.status}
-              </span>
-              <span className="text-[#1f521f]">IDX:{index + 1}</span>
-            </div>
-            {project.terminal ? (
-              <TerminalPreview />
+            {project.visual ? (
+              <ProjectVisual type={project.visual} />
             ) : (
-              <div className="relative flex aspect-[16/11] items-center justify-center overflow-hidden border border-dashed border-[#1f521f] bg-[#020402] p-5">
+              <motion.div
+                whileHover={{ scale: 1.04 }}
+                transition={{ duration: 0.18, ease: terminalEase }}
+                className="relative flex aspect-[16/10] items-center justify-center overflow-hidden border border-dashed border-[#1f521f] bg-[#020402] p-5"
+              >
                 {project.image && (
                   <Image
                     src={project.image}
                     alt={project.imageAlt ?? project.title}
                     fill
                     sizes="(max-width: 1024px) 88vw, 460px"
-                    className="object-contain p-6 grayscale contrast-125 transition duration-200 hover:grayscale-0"
+                    className="object-contain p-3 transition duration-200"
                   />
                 )}
-              </div>
+              </motion.div>
             )}
           </div>
 
           <div className="space-y-5">
             <div>
+              <p className="mb-2 inline-flex items-center gap-2 text-xs uppercase text-[#ffb000]">
+                <project.icon size={16} aria-hidden="true" />
+                {project.status}
+              </p>
               <h3 className="terminal-glow text-2xl font-black uppercase leading-tight text-[#33ff00]">
                 {project.title}
               </h3>
@@ -722,20 +714,70 @@ function ProjectPane({ project, index }: { project: Project; index: number }) {
   );
 }
 
-function TerminalPreview() {
-  return (
-    <pre className="min-h-52 overflow-hidden border border-dashed border-[#1f521f] bg-black p-4 text-xs leading-6 text-[#33ff00]">
-{`$ java Hangman
-[OK] loading word bank
-word    : _ _ _ _ _ _
-misses  : 3
-letters : A E R T
+function ProjectVisual({ type }: { type: "rps" | "hangman" }) {
+  if (type === "rps") {
+    return (
+      <motion.div
+        whileHover={{ scale: 1.04 }}
+        transition={{ duration: 0.18, ease: terminalEase }}
+        className="flex min-h-52 items-center justify-center border border-dashed border-[#1f521f] bg-[#020402] p-8"
+      >
+        <div className="grid w-full max-w-sm grid-cols-3 items-center gap-4">
+          <div className="aspect-square rounded-full border border-[#33ff00] bg-[#33ff00]/10" />
+          <div className="aspect-[0.78/1] border border-[#ffb000] bg-[#ffb000]/10" />
+          <div className="relative aspect-square">
+            <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 rotate-45 bg-[#33ff00]" />
+            <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 -rotate-45 bg-[#33ff00]" />
+            <span className="absolute left-1 top-1 size-4 rounded-full border border-[#ffb000]" />
+            <span className="absolute bottom-1 right-1 size-4 rounded-full border border-[#ffb000]" />
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
-class HangmanGame {
-  validateGuess();
-  updateState();
-}`}
-    </pre>
+  return (
+    <motion.div
+      whileHover={{ scale: 1.04 }}
+      transition={{ duration: 0.18, ease: terminalEase }}
+      className="flex min-h-52 items-center justify-center border border-dashed border-[#1f521f] bg-[#020402] p-8"
+    >
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 240 180"
+        className="h-full max-h-52 w-full max-w-sm text-[#33ff00]"
+      >
+        <path
+          d="M48 156H190M70 156V28H154M154 28V54"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="square"
+          strokeWidth="6"
+        />
+        <circle
+          cx="154"
+          cy="74"
+          r="20"
+          fill="none"
+          stroke="#ffb000"
+          strokeWidth="5"
+        />
+        <path
+          d="M154 94V132M124 110H184M154 132L130 156M154 132L178 156"
+          fill="none"
+          stroke="#ffb000"
+          strokeLinecap="square"
+          strokeWidth="5"
+        />
+        <path
+          d="M36 28H70M36 156H70M190 156H218"
+          fill="none"
+          stroke="#1f521f"
+          strokeDasharray="8 8"
+          strokeWidth="4"
+        />
+      </svg>
+    </motion.div>
   );
 }
 
@@ -764,7 +806,7 @@ function ContactPane({ item }: { item: ContactItem }) {
   );
 
   const className =
-    "glitch-link flex min-h-20 items-center border border-[#1f521f] bg-black transition hover:bg-[#071207] focus-visible:bg-[#33ff00] focus-visible:text-black focus-visible:outline-none";
+    "glitch-link flex min-h-20 items-center border border-[#1f521f] bg-black transition hover:scale-[1.02] hover:bg-[#071207] focus-visible:bg-[#33ff00] focus-visible:text-black focus-visible:outline-none";
 
   if (!item.href) {
     return <div className={className}>{content}</div>;

@@ -67,10 +67,11 @@ html {
   color: #020402;
   outline: none;
   text-shadow: none;
+  transform: scale(1.045);
 }
 
 .terminal-button:active {
-  transform: translateY(1px);
+  transform: scale(0.98);
 }
 
 .blink-cursor {
@@ -82,7 +83,7 @@ html {
   max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 0.72em solid var(--terminal-primary);
+  border-right: 0.22em solid var(--terminal-primary);
   animation:
     terminal-typing 1.4s steps(14, end) both,
     cursor-border 1s steps(2, start) infinite;
@@ -90,6 +91,38 @@ html {
 
 .glitch-link:hover {
   animation: terminal-glitch 260ms steps(2, end) 1;
+}
+
+.glitch-title {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+  animation: title-glitch 5.8s steps(2, end) infinite;
+  content: attr(data-text);
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.glitch-title::before {
+  color: var(--terminal-primary);
+  transform: translate(1px, -1px);
+}
+
+.glitch-title::after {
+  animation-delay: 110ms;
+  color: var(--terminal-error);
+  transform: translate(-1px, 1px);
+}
+
+.glitch-title:hover::before,
+.glitch-title:hover::after {
+  animation: title-glitch 640ms steps(2, end) 1;
+  opacity: 0.72;
 }
 
 @keyframes cursor-blink {
@@ -138,6 +171,30 @@ html {
   }
   100% {
     transform: translate(0, 0);
+  }
+}
+
+@keyframes title-glitch {
+  0%,
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 0;
+  }
+  18% {
+    clip-path: inset(12% 0 58% 0);
+    opacity: 0.85;
+  }
+  36% {
+    clip-path: inset(62% 0 16% 0);
+    opacity: 0.55;
+  }
+  54% {
+    clip-path: inset(28% 0 44% 0);
+    opacity: 0.75;
+  }
+  72% {
+    clip-path: inset(74% 0 8% 0);
+    opacity: 0.45;
   }
 }
 
