@@ -320,7 +320,7 @@ export function PortfolioPage() {
               <div className="grid items-center gap-5 sm:grid-cols-[0.75fr_1fr] lg:grid-cols-1 xl:grid-cols-[0.72fr_1fr]">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.18, ease: terminalEase }}
+                  transition={{ duration: 0.25, ease: terminalEase }}
                   className="relative mx-auto size-48 overflow-hidden rounded-full border border-[#33ff00] bg-black sm:size-56 lg:size-52"
                 >
                   <Image
@@ -344,6 +344,9 @@ export function PortfolioPage() {
 |  REPEAT -> OK  |
 +----------------+`}
                   </pre>
+                  <div className="border border-[#1f521f] bg-black p-3 text-sm leading-7 text-[#ffb000]">
+                    Ima be the best video game dev alive trust 😄😄😈
+                  </div>
                 </div>
               </div>
             </TerminalWindow>

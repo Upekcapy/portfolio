@@ -56,9 +56,10 @@ html {
   text-transform: uppercase;
   white-space: nowrap;
   transition:
-    background-color 160ms linear,
-    color 160ms linear,
-    transform 120ms linear;
+    background-color 250ms ease,
+    color 250ms ease,
+    transform 250ms ease,
+    text-shadow 250ms ease;
 }
 
 .terminal-button:hover,
@@ -96,6 +97,11 @@ html {
 .glitch-title {
   position: relative;
   display: inline-block;
+  transition:
+    color 250ms ease,
+    filter 250ms ease,
+    text-shadow 250ms ease,
+    transform 250ms ease;
 }
 
 .glitch-title::before,
@@ -106,6 +112,10 @@ html {
   opacity: 0;
   pointer-events: none;
   position: absolute;
+  transition:
+    clip-path 250ms ease,
+    opacity 250ms ease,
+    transform 250ms ease;
 }
 
 .glitch-title::before {
@@ -121,8 +131,13 @@ html {
 
 .glitch-title:hover::before,
 .glitch-title:hover::after {
-  animation: title-glitch 640ms steps(2, end) 1;
+  animation: title-glitch 640ms linear 1;
   opacity: 0.72;
+}
+
+.glitch-title:hover {
+  filter: brightness(1.16);
+  transform: scale(1.015);
 }
 
 @keyframes cursor-blink {
