@@ -451,7 +451,7 @@ export function PortfolioPage() {
                 <p className="text-sm leading-7 text-[#b7ffb7]">
                   I am looking forward to co-op roles where I can contribute,
                   receive feedback, and keep improving as a developer. Email is
-                  the best first contact; GitHub and LinkedIn are linked below.
+                  the best first contact; GitHub and LinkedIn are linked too.
                 </p>
                 <TerminalLink
                   href="mailto:upek2007@gmail.com"
