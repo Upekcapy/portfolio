@@ -1,22 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6faf5;
-  --foreground: #08110c;
+  --background: #0a0a0a;
+  --foreground: #33ff00;
+  --terminal-primary: #33ff00;
+  --terminal-secondary: #ffb000;
+  --terminal-muted: #1f521f;
+  --terminal-error: #ff3333;
+  --terminal-panel: #050805;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --font-sans: var(--font-terminal), "JetBrains Mono", "Fira Code", monospace;
+  --font-mono: var(--font-terminal), "JetBrains Mono", "Fira Code", monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui,
-    sans-serif;
+  font-family: var(--font-terminal), "JetBrains Mono", "Fira Code", monospace;
+  text-shadow: 0 0 5px rgba(51, 255, 0, 0.28);
 }
 
 html {
@@ -24,8 +29,116 @@ html {
 }
 
 ::selection {
-  background: #b7f7c8;
-  color: #07120c;
+  background: var(--terminal-primary);
+  color: #020402;
+}
+
+.crt-overlay {
+  background:
+    linear-gradient(rgba(51, 255, 0, 0.035) 50%, rgba(0, 0, 0, 0.14) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.018), rgba(0, 255, 0, 0.012), rgba(0, 0, 255, 0.018));
+  background-size: 100% 4px, 6px 100%;
+}
+
+.terminal-glow {
+  text-shadow: 0 0 8px rgba(51, 255, 0, 0.6);
+}
+
+.terminal-button {
+  border: 1px solid var(--terminal-primary);
+  color: var(--terminal-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.9rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 160ms linear,
+    color 160ms linear,
+    transform 120ms linear;
+}
+
+.terminal-button:hover,
+.terminal-button:focus-visible {
+  background: var(--terminal-primary);
+  color: #020402;
+  outline: none;
+  text-shadow: none;
+}
+
+.terminal-button:active {
+  transform: translateY(1px);
+}
+
+.blink-cursor {
+  animation: cursor-blink 1s steps(2, start) infinite;
+}
+
+.typing-line {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 0.72em solid var(--terminal-primary);
+  animation:
+    terminal-typing 1.4s steps(14, end) both,
+    cursor-border 1s steps(2, start) infinite;
+}
+
+.glitch-link:hover {
+  animation: terminal-glitch 260ms steps(2, end) 1;
+}
+
+@keyframes cursor-blink {
+  0%,
+  46% {
+    opacity: 1;
+  }
+  47%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cursor-border {
+  0%,
+  46% {
+    border-color: var(--terminal-primary);
+  }
+  47%,
+  100% {
+    border-color: transparent;
+  }
+}
+
+@keyframes terminal-typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 14ch;
+  }
+}
+
+@keyframes terminal-glitch {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(1px, -1px);
+  }
+  50% {
+    transform: translate(-1px, 1px);
+  }
+  75% {
+    transform: translate(1px, 1px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -36,5 +149,10 @@ html {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .typing-line {
+    width: auto;
+    border-right: 0;
   }
 }
