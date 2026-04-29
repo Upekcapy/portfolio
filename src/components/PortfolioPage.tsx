@@ -118,7 +118,6 @@ const projects: Project[] = [
       "REACT",
       "TYPESCRIPT",
       "NEXTJS",
-      "TAILWIND",
       "SUPABASE",
       "WEB_PUSH",
       "CHARTS",
