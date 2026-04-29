@@ -127,7 +127,7 @@ const projects: Project[] = [
     status: "[OK] MOBILE_MODE",
     description:
       "A mobile direction for NotiStock focused on fast access, readable screens, and alert-driven decision support when users are away from a desktop setup.",
-    repo: "https://github.com/Upekcapy/noti-stock",
+    repo: "https://github.com/Upekcapy/noti-stock-android",
     image: "/images/notistock-mobile-icon-512.png",
     imageAlt: "NotiStock mobile app icon",
     icon: Smartphone,
