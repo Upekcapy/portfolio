@@ -74,6 +74,8 @@ const skills = [
   { label: "REACT/NEXT", value: 72 },
   { label: "ANDROID", value: 66 },
   { label: "GIT/GITHUB", value: 80 },
+  { label: "VERCEL", value: 76 },
+  { label: "SUPABASE", value: 70 },
   { label: "OOP/DATA_STRUCTURES", value: 76 },
 ];
 
